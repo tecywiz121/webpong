@@ -1,0 +1,16 @@
+# Virtual environment stuff
+
+venv
+
+# Compiled python objects
+
+*.pyc
+*.pyo
+
+# Development databases
+
+*.db
+
+# Ignore machine specific configuration
+
+local_settings.py
