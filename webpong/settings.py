@@ -123,6 +123,8 @@ INSTALLED_APPS = (
     'pong',
 )
 
+ACCOUNT_ACTIVATION_DAYS = 5
+
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
 # the site admins on every HTTP 500 error when DEBUG=False.
@@ -151,6 +153,10 @@ LOGGING = {
         },
     }
 }
+
+EMAIL_HOST = 'smtp.mandrillapp.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'tecywiz121@hotmail.com'
 
 try:
     from local_settings import *
