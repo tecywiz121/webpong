@@ -3,7 +3,7 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect, HttpResponse, HttpResponseBadRequest, HttpResponseServerError
 from django.shortcuts import get_object_or_404
 import django.utils.simplejson as json
 
@@ -18,6 +18,23 @@ class GameView(DetailView):
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         return super(GameView, self).dispatch(*args, **kwargs)
+
+    def post(self, *args, **kwargs):
+        '''Post to join a game'''
+        game = self.get_object()
+        user = self.request.user
+
+        if game.player1 == user:
+            return HttpResponseBadRequest('You cannot join this game')
+        elif game.player2 == user:
+            pass # Skip saving and just redirect to the game
+        elif game.player2 != None:
+            return HttpResponseServerError('This game is already full')
+        else:
+            game.player2 = user
+            game.save()
+
+        return HttpResponseRedirect(game.get_absolute_url())
 
 class GameListView(ListView):
     model = Game
