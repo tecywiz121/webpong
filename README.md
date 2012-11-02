@@ -23,7 +23,8 @@ the simulator goes something like this:
     $ cd sim/
     $ pyjsbuild -m pong.py
 
-After the build is done, you should use manage.py to collect the new static
+After the build is done, you have to add "'static' +" (without the double quotes)
+to line 159 of bootstrap.py. You should use manage.py to collect the new static
 files:
 
     $ cd ..

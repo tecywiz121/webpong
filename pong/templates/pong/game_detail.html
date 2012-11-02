@@ -1,17 +1,33 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block title %}Game: {{game.name}}{% endblock title %}
+
 {% block head %}
-    {% if not game.player2 %}
-        <script type="text/javascript">POLL_URL = '{% url pong-game-detail-ajax game.pk %}';</script>
-        <script type="text/javascript" src="{% static 'pong/js/wait_for_player.js' %}"></script>
+    {% if game.player2 %}
+        <meta name="pygwt:module" content="pong">
+    {% else %}
+        {% if user == game.player1 %}
+            <script type="text/javascript">POLL_URL = '{% url pong-game-detail-ajax game.pk %}';</script>
+            <script type="text/javascript" src="{% static 'pong/js/wait_for_player.js' %}"></script>
+        {% endif %}
     {% endif %}
 {% endblock head %}
 
 {% block content %}
-{% if game.player2 %}
-    Player 2 Joined!
-{% else %}
-    Waiting for Player 2...
-{% endif %}
+    {% if not game.player2 %}
+        {% if user == game.player1 %}
+            Waiting for Player 2...
+        {% else %}
+            <form method="POST">
+                {% csrf_token %}
+                <button type="submit">Join Game</button>
+            </form>
+        {% endif %}
+    {% else %}
+        Game Ready!
+        <script language="javascript" src="{% static 'bootstrap.js' %}"></script>
+        <iframe id='__pygwt_historyFrame' style='width:0;height:0;border:0'></iframe>
+        <script type="text/javascript" src="{% static 'pong/js/game.js' %}"></script>
+    {% endif %}
 {% endblock content %}
