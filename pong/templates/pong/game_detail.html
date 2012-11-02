@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head %}
+    {% if not game.player2 %}
+        <script type="text/javascript">POLL_URL = '{% url pong-game-detail-ajax game.pk %}';</script>
+        <script type="text/javascript" src="{% static 'pong/js/wait_for_player.js' %}"></script>
+    {% endif %}
+{% endblock head %}
+
+{% block content %}
+{% if game.player2 %}
+    Player 2 Joined!
+{% else %}
+    Waiting for Player 2...
+{% endif %}
+{% endblock content %}

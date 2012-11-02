@@ -5,9 +5,13 @@ from django.contrib.auth.models import User
 class Game(models.Model):
    name = models.CharField(max_length=200)
    player1 = models.ForeignKey(User, related_name="+")
-   player2 = models.ForeignKey(User, related_name="+")
+   player2 = models.ForeignKey(User, related_name="+", blank=True, null=True)
 
-   start_time = models.DateTimeField()
+   start_time = models.DateTimeField(blank=True, null=True)
+
+   @models.permalink
+   def get_absolute_url(self):
+       return ('pong-game-detail', [], {'pk': str(self.pk)})
 
 class State(models.Model):
    class Meta:
@@ -54,4 +58,3 @@ class Action(models.Model):
    state = models.OneToOneField(State, primary_key=True, related_name="action")
    type = models.CharField(choices=TYPE_CHOICES, max_length=2)
    player = models.IntegerField(choices=PLAYER_CHOICES)
-
