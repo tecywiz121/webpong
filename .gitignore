@@ -14,3 +14,8 @@ venv
 # Ignore machine specific configuration
 
 local_settings.py
+
+# Ignore static and media files
+
+/staticfiles/
+/mediafiles/
