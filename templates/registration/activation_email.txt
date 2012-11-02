@@ -1,10 +1,10 @@
 Hey!
 
-We're really glad you've decided to sign up for an account with SpearMint!
+We're really glad you've decided to sign up for an account with WebPong!
 Please click (or copy and paste) the link below to get started.
 
-{% url registration_activate activation_key %}
+http://{{site.domain}}{% url registration_activate activation_key %}
 
 Thanks,
 
-The SpearMint Team
+The WebPong Team

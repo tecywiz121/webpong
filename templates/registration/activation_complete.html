@@ -3,12 +3,12 @@
 {% block content %}
 <div class="alert-message block-message success">
     <p>
-        Phewf.  You're through registration.  Almost ready to try SpearMint?
+        Phewf.  You're through registration.  Almost ready to try {{ site.name }}?
         Awesome!
 
     </p>
     <div class="container">
-        <a class="btn primary large" title="Settings" href="{% url buzzer.views.profile %}">Continue »</a>
+        <a class="btn primary large" title="Games" href="{% url pong-game-list %}">Continue »</a>
     </div><!-- /.container -->
 </div><!-- /.success -->
 {% endblock content %}
