@@ -125,30 +125,26 @@ class GameState(object):
         self.objects = (paddle1, paddle2, ball)
         self.match_over = False
 
-    @property
     def ball(self):
         return self.objects[2]
 
-    @property
     def paddle1(self):
         return self.objects[0]
 
-    @property
     def paddle2(self):
         return self.objects[1]
 
     def initialize(self):
         self.match_over = False
-        self.ball.initialize()
-        self.paddle1.initialize(False)
-        self.paddle2.initialize(True)
+        self.ball().initialize()
+        self.paddle1().initialize(False)
+        self.paddle2().initialize(True)
 
-    @property
     def winner(self):
         if not self.match_over:
             return None
 
-        if self.ball.position_x < self.ball.max_x-self.ball.position_x:
+        if self.ball().position_x < self.ball().max_x-self.ball().position_x:
             return 1
         else:
             return 0
@@ -161,14 +157,14 @@ class GameState(object):
             obj.tick()
 
         # Check for ball-wall collisions
-        if self.ball.collided_x:
+        if self.ball().collided_x:
             self.match_over = True
 
         # Check for ball-paddle collisions
-        if self.paddle1.intersects_with(self.ball):
-            self.ball.velocity_x = abs(self.ball.velocity_x)
-        elif self.paddle2.intersects_with(self.ball):
-            self.ball.velocity_x = -abs(self.ball.velocity_x)
+        if self.paddle1().intersects_with(self.ball()):
+            self.ball().velocity_x = abs(self.ball().velocity_x)
+        elif self.paddle2().intersects_with(self.ball()):
+            self.ball().velocity_x = -abs(self.ball().velocity_x)
 
     def clone(self):
         new = self.__class__()
