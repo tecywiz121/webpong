@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}Welcome{% endblock %}
+
+{% block content %}
+<ul>
+    {% if user.is_authenticated %}
+    <li><a href="{% url auth_logout %}">Logout</a></li>
+    {% else %}
+    <li><a href="{% url registration_register %}">Register</a></li>
+    {% endif %}
+    <li><a href="{% url pong-game-list %}">Join a Game</a></li>
+    <li><a href="{% url pong-game-create %}">Create a Game</a></li>
+</ul>
+{% endblock content %}

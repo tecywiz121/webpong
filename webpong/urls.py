@@ -16,4 +16,6 @@ urlpatterns = patterns('',
     # url(r'^admin/', include(admin.site.urls)),
     url(r'^pong/', include('pong.urls')),
     url(r'^accounts/', include('registration.backends.default.urls')),
+
+    url(r'', include('home.urls')),
 )

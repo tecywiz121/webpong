@@ -121,6 +121,7 @@ INSTALLED_APPS = (
     'registration',
     'south',
     'pong',
+    'home',
 )
 
 ACCOUNT_ACTIVATION_DAYS = 5
