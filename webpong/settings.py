@@ -158,6 +158,8 @@ EMAIL_HOST = 'smtp.mandrillapp.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'tecywiz121@hotmail.com'
 
+LOGIN_REDIRECT_URL = '/'
+
 try:
     from local_settings import *
 except ImportError:
