@@ -2,14 +2,18 @@ from django.views.generic import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_POST
 from django.utils.decorators import method_decorator
-from django.http import HttpResponseRedirect, HttpResponse, HttpResponseBadRequest, HttpResponseServerError
+from django.http import HttpResponseRedirect, HttpResponse, \
+                        HttpResponseBadRequest, HttpResponseServerError, HttpResponseForbidden
 from django.shortcuts import get_object_or_404
 import django.utils.simplejson as json
 
-from .forms import GameForm
+from .forms import GameForm, ActionForm
 
 from pong.models import Game
+
+from sim.pong import Pong
 
 class GameView(DetailView):
     model = Game
@@ -69,3 +73,27 @@ def game_detail_ajax(request, pk):
     response = {'status': 'ready' if game.player2 else 'waiting'}
     return HttpResponse(json.dumps(response),
         content_type='application/json')
+
+@login_required
+#@require_POST
+def game_send_action_ajax(request, pk):
+    game = get_object_or_404(Game, pk=pk)
+    user = request.user
+
+    form = ActionForm(request.POST)
+
+    if not form.is_valid():
+        return HttpResponseBadRequest(json.dumps(form.errors), content_type='application/json')
+
+    if user == game.player1:
+        player = Pong.PLAYER1
+    elif user == game.player2:
+        player = Pong.PLAYER2
+    else:
+        return HttpResponseForbidden('Not your game')
+
+    time = form.cleaned_data['time']
+    action = form.cleaned_data['action']
+    game.simulator.action(player, time, action)
+    game.save()
+    return HttpResponse(json.dumps(game.simulator), content_type='application/json')
