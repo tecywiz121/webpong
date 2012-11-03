@@ -106,7 +106,7 @@
         }
 
         var action = a1 + a2;
-        game.action(0, game.current_time, action);
+        game.action(PONG_PLAYER, game.current_time, action);
     };
 
     //

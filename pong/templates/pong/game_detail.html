@@ -6,6 +6,10 @@
 {% block head %}
     {% if game.player2 %}
         <meta name="pygwt:module" content="pong">
+        <script type="text/javascript">
+        PONG_PLAYER = {% if user == game.player1 %}0{% else %}1{% endif %};
+        </script>
+
     {% else %}
         {% if user == game.player1 %}
             <script type="text/javascript">POLL_URL = '{% url pong-game-detail-ajax game.pk %}';</script>
