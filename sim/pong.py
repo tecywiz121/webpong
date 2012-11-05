@@ -1,7 +1,7 @@
 from SortedCollection import SortedCollection
 
-GAME_WIDTH = 100
-GAME_HEIGHT = 50
+GAME_WIDTH = 800
+GAME_HEIGHT = 400
 BALL_VELOCITY = (1, 0)  # x**2 + y**2 < width of a paddle
 PADDLE_VELOCITY = 2
 
@@ -89,8 +89,8 @@ class GameObject(object):
                 a_y1 < b_y2 and a_y2 > b_y1
 
 class Ball(GameObject):
-    width = 5
-    height = 5
+    width = 10
+    height = 10
 
     def initialize(self):
         self.position_x = self.max_x/2
@@ -98,8 +98,8 @@ class Ball(GameObject):
         self.velocity_x, self.velocity_y = BALL_VELOCITY
 
 class Paddle(GameObject):
-    width = 5
-    height = 20
+    width = 10
+    height = 50
     def check_collision_y(self, new_y):
         if new_y + (self.height/2) >= self.max_y:
             new_y = self.max_y - (self.height/2)
@@ -166,7 +166,6 @@ class GameState(object):
         elif self.paddle2().intersects_with(self.ball()):
             self.ball().velocity_x = -abs(self.ball().velocity_x)
 
-        print self.toJSON()
 
     def clone(self):
         new = self.__class__()

@@ -9,8 +9,8 @@ $pyjs.loaded_modules['pong'] = function (__mod_name__) {
 
 
 	pong['SortedCollection'] = pyjslib['___import___']('SortedCollection.SortedCollection', null, null, false);
-	pong['GAME_WIDTH'] = 100;
-	pong['GAME_HEIGHT'] = 50;
+	pong['GAME_WIDTH'] = 800;
+	pong['GAME_HEIGHT'] = 400;
 	pong['BALL_VELOCITY'] = pyjslib['tuple']([1, 0]);
 	pong['PADDLE_VELOCITY'] = 2;
 	pong['GameObject'] = (function(){
@@ -319,9 +319,9 @@ $pyjs.loaded_modules['pong'] = function (__mod_name__) {
 		var $cls_instance = $pyjs__class_instance('Ball');
 		var $cls_definition = new Object();
 		var $method;
-		$cls_definition.__md5__ = 'b8b1cd2829361ef5e2719887d326be72';
-		$cls_definition['width'] = 5;
-		$cls_definition['height'] = 5;
+		$cls_definition.__md5__ = 'c83331ad56648952bcfec32dc5fdbdb6';
+		$cls_definition['width'] = 10;
+		$cls_definition['height'] = 10;
 		$method = $pyjs__bind_method($cls_instance, 'initialize', function() {
 			if (this.__is_instance__ === true) {
 				var self = this;
@@ -353,9 +353,9 @@ $pyjs.loaded_modules['pong'] = function (__mod_name__) {
 		var $cls_instance = $pyjs__class_instance('Paddle');
 		var $cls_definition = new Object();
 		var $method;
-		$cls_definition.__md5__ = '137ed141101eb885aea5902d44cfc1ff';
-		$cls_definition['width'] = 5;
-		$cls_definition['height'] = 20;
+		$cls_definition.__md5__ = '48f77b0f748e6c3b816db4190a5ab93d';
+		$cls_definition['width'] = 10;
+		$cls_definition['height'] = 50;
 		$method = $pyjs__bind_method($cls_instance, 'check_collision_y', function(new_y) {
 			if (this.__is_instance__ === true) {
 				var self = this;
@@ -798,7 +798,7 @@ var $generator_state = [0], $generator_exc = [null], $yield_value = null, $exc =
 		var $cls_instance = $pyjs__class_instance('Pong');
 		var $cls_definition = new Object();
 		var $method;
-		$cls_definition.__md5__ = 'ca1c34a1604b2fcbb2ec00e9a4efdb96';
+		$cls_definition.__md5__ = 'aefad7fafb0614cd31bb6016d263768e';
 		$cls_definition['PLAYER1'] = 0;
 		$cls_definition['PLAYER2'] = 1;
 		$cls_definition['NULL'] = String('N');

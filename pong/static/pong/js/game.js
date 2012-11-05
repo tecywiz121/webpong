@@ -17,6 +17,9 @@
     // The biggest time we've simulated
     var max_time = 0;
 
+    // Last update ticks
+    var last_update_ticks = 0;
+
     // Wait until all of the various layers of pyjs have done
     // their business and the pong module is ready to use.
     var wait_for_pyjs = function (callback) {
@@ -103,6 +106,7 @@
         var state = event.data[1];
 
         game.action(action[0], action[1], action[2], toPyObject(state));
+        last_update_ticks = game.current_time;
         if (game.current_time < max_time) {
             game.tick_until(max_time);
         } else {
@@ -185,6 +189,11 @@
         if (game.current_time > max_time) {
             max_time = game.current_time;
         }
+
+        if (game.current_time - last_update_ticks > 100) {
+            send_action('', '');
+        }
+
         setTimeout(main, 33);
     };
 
