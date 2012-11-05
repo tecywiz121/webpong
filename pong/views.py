@@ -14,6 +14,7 @@ from .forms import GameForm, ActionForm
 from pong.models import Game
 
 from sim.pong import Pong
+from django.views.decorators.csrf import csrf_exempt
 
 class GameView(DetailView):
     model = Game
@@ -36,6 +37,7 @@ class GameView(DetailView):
             return HttpResponseServerError('This game is already full')
         else:
             game.player2 = user
+            game.simulator.action(0, 0, 'B')
             game.save()
 
         return HttpResponseRedirect(game.get_absolute_url())
@@ -75,7 +77,8 @@ def game_detail_ajax(request, pk):
         content_type='application/json')
 
 @login_required
-#@require_POST
+@require_POST
+@csrf_exempt
 def game_send_action_ajax(request, pk):
     game = get_object_or_404(Game, pk=pk)
     user = request.user
@@ -96,4 +99,9 @@ def game_send_action_ajax(request, pk):
     action = form.cleaned_data['action']
     game.simulator.action(player, time, action)
     game.save()
-    return HttpResponse(json.dumps(game.simulator), content_type='application/json')
+    print game.simulator.current_state.ball().position_x, game.simulator.current_state.ball().position_y
+    game.simulator.tick()
+
+    return_action = (0, game.simulator.current_time, 'N')
+    return_state = game.simulator.current_state
+    return HttpResponse(json.dumps([return_action, return_state.toJSON()]), content_type='application/json')

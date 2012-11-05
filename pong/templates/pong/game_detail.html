@@ -8,6 +8,9 @@
         <meta name="pygwt:module" content="pong">
         <script type="text/javascript">
         PONG_PLAYER = {% if user == game.player1 %}0{% else %}1{% endif %};
+        PONG_WORKER_PATH = "{% static 'pong/js/game_worker.js' %}";
+        PONG_ACTION_PATH = "{% url pong-game-action-ajax game.pk %}";
+        CURRENT_TIME = {{ game.simulator.current_time }};
         </script>
 
     {% else %}

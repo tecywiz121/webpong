@@ -166,6 +166,8 @@ class GameState(object):
         elif self.paddle2().intersects_with(self.ball()):
             self.ball().velocity_x = -abs(self.ball().velocity_x)
 
+        print self.toJSON()
+
     def clone(self):
         new = self.__class__()
         new.objects = tuple(x.clone() for x in self.objects)
@@ -175,6 +177,13 @@ class GameState(object):
         new = self.clone()
         new.tick()
         return new
+
+    def toJSON(self):
+        jsond = []
+        for obj in self.objects:
+            jsond.append({'position': (obj.position_x, obj.position_y),
+                            'velocity': (obj.velocity_x, obj.velocity_y)})
+        return {'ball': jsond[2], 'paddle1': jsond[0], 'paddle2': jsond[1]}
 
 class Pong(object):
     PLAYER1 = 0
@@ -194,7 +203,7 @@ class Pong(object):
         self.current_state = self.states[0]
         self.current_time = 0
 
-    def action(self, player, action_time, action):
+    def action(self, player, action_time, action, state=None):
         if self.last_action_time[player] > action_time:
             return  # Discard out of order actions
 
@@ -208,6 +217,21 @@ class Pong(object):
         # Delete the invalidated states
         del self.states[index+1:]
 
+        if state is not None:
+           new_state = GameState()
+
+           ball = new_state.ball()
+           ball.position_x, ball.position_y = state['ball']['position']
+           ball.velocity_x, ball.velocity_y = state['ball']['velocity']
+
+           paddle1 = new_state.paddle1()
+           paddle1.position_x, paddle1.position_y = state['paddle1']['position']
+           paddle1.velocity_x, paddle1.velocity_y = state['paddle1']['velocity']
+
+           paddle2 = new_state.paddle2()
+           paddle2.position_x, paddle2.position_y = state['paddle2']['position']
+           paddle2.velocity_x, paddle2.velocity_y = state['paddle2']['velocity']
+           self.states.append(new_state)
         # Save the current time so we can fast forward
         now = self.current_time
 

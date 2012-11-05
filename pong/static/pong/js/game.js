@@ -11,6 +11,12 @@
     // The simulator
     var game;
 
+    // Worker thread to post updates to the server
+    var worker;
+
+    // The biggest time we've simulated
+    var max_time = 0;
+
     // Wait until all of the various layers of pyjs have done
     // their business and the pong module is ready to use.
     var wait_for_pyjs = function (callback) {
@@ -51,9 +57,11 @@
         clear_canvas();
     };
 
-    var initialize_game = function () {
+    var initialize_game = function (current_time) {
         game = pong.Pong();
         game.action(0, 0, 'B'); // Sets up the position for the paddles and balls
+        game.current_time = current_time;
+        send_action('', '');    // Send a null action to get the current state
     };
 
     var initialize_events = function () {
@@ -61,9 +69,46 @@
             .keyup(keyup_handler);
     };
 
+    var initialize_worker = function () {
+        worker = new Worker(PONG_WORKER_PATH);
+        worker.onmessage = worker_message_handler;
+        worker.postMessage(PONG_ACTION_PATH);
+    };
+
     //
     // Event Handlers
     //
+
+    var toPyObject = function (obj) {
+        var result;
+        if ($.isArray(obj)) {
+            result = pyjsFrame.pyjslib.list();
+            for (var ii = 0; ii < obj.length; ii++) {
+                result.append(toPyObject(obj[ii]));
+            }
+            return result;
+        } else if ($.isFunction(obj) || $.isNumeric(obj) || typeof(obj) === 'string') {
+            return obj;
+        } else {
+            result = pyjsFrame.pyjslib.dict();
+            for (var ii in obj) {
+                result.__setitem__(toPyObject(ii), toPyObject(obj[ii]));
+            }
+            return result;
+        }
+    };
+
+    var worker_message_handler = function (event) {
+        var action = event.data[0];
+        var state = event.data[1];
+
+        game.action(action[0], action[1], action[2], toPyObject(state));
+        if (game.current_time < max_time) {
+            game.tick_until(max_time);
+        } else {
+            max_time = game.current_time;
+        }
+    };
 
     var down_keys = {};
 
@@ -90,7 +135,7 @@
     };
 
     var send_action = function (keycode, was_pressed) {
-        var a1, a2;
+        var a1, a2='N';
 
         // Flip the codes so that the up key looks like up
         if (keycode === KEY_UP) {
@@ -107,6 +152,7 @@
 
         var action = a1 + a2;
         game.action(PONG_PLAYER, game.current_time, action);
+        worker.postMessage([PONG_PLAYER, game.current_time, action]);
     };
 
     //
@@ -132,10 +178,12 @@
     };
 
     var main = function () {
+        if (!game.current_state.match_over) {
+            game.tick();
+        }
         draw();
-        game.tick();
-        if (game.current_state.match_over) {
-            return;
+        if (game.current_time > max_time) {
+            max_time = game.current_time;
         }
         setTimeout(main, 33);
     };
@@ -149,8 +197,11 @@
             // Now that we have the library, initialize the canvas
             initialize_canvas();
 
+            // Initialize worker
+            initialize_worker();
+
             // Initialize the game
-            initialize_game();
+            initialize_game(CURRENT_TIME);
 
             // Set up events
             initialize_events();

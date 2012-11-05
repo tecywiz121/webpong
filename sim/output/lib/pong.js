@@ -447,7 +447,7 @@ $pyjs.loaded_modules['pong'] = function (__mod_name__) {
 		var $cls_instance = $pyjs__class_instance('GameState');
 		var $cls_definition = new Object();
 		var $method;
-		$cls_definition.__md5__ = 'ceb1f0f87db57f8a5d74e799c94931da';
+		$cls_definition.__md5__ = 'dd7d202e3cf4dda889da47682552dd88';
 		$method = $pyjs__bind_method($cls_instance, '__init__', function(ball, paddle1, paddle2) {
 			if (this.__is_instance__ === true) {
 				var self = this;
@@ -759,6 +759,38 @@ var $generator_state = [0], $generator_exc = [null], $yield_value = null, $exc =
 		}
 	, 1, [null,null,['self']]);
 		$cls_definition['clone_tick'] = $method;
+		$method = $pyjs__bind_method($cls_instance, 'toJSON', function() {
+			if (this.__is_instance__ === true) {
+				var self = this;
+			} else {
+				var self = arguments[0];
+			}
+			var jsond,obj,$attr127,$iter3_type,$attr130,$attr123,$iter3_idx,$attr124,$iter3_iter,$attr126,$iter3_array,$attr128,$attr129,$iter3_nextval,$attr125;
+			jsond = pyjslib['list']([]);
+			$iter3_iter = self['objects'];
+			if (typeof ($iter3_array = $iter3_iter.__array) != 'undefined') {
+				$iter3_type = 0;
+			} else {
+				$iter3_iter = $iter3_iter.__iter__();
+				$iter3_type = typeof ($iter3_array = $iter3_iter.__array) != 'undefined'? 0 : (typeof $iter3_iter.$genfunc == 'function'? 1 : -1);
+			}
+			$iter3_idx = 0;
+			while (typeof ($iter3_nextval=($iter3_type?($iter3_type > 0?$iter3_iter.next(true,false):pyjslib['wrapped_next']($iter3_iter)):$iter3_array[$iter3_idx++])) != 'undefined') {
+				obj = $iter3_nextval;
+				jsond['append'](pyjslib['dict']([[String('position'), pyjslib['tuple']([((($attr123=obj['position_x']) !== null & ($attr124=obj).__is_instance__) && typeof $attr123 == 'function'?
+							pyjslib['getattr']($attr124, 'position_x'):
+							obj['position_x']), ((($attr125=obj['position_y']) !== null & ($attr126=obj).__is_instance__) && typeof $attr125 == 'function'?
+							pyjslib['getattr']($attr126, 'position_y'):
+							obj['position_y'])])], [String('velocity'), pyjslib['tuple']([((($attr127=obj['velocity_x']) !== null & ($attr128=obj).__is_instance__) && typeof $attr127 == 'function'?
+							pyjslib['getattr']($attr128, 'velocity_x'):
+							obj['velocity_x']), ((($attr129=obj['velocity_y']) !== null & ($attr130=obj).__is_instance__) && typeof $attr129 == 'function'?
+							pyjslib['getattr']($attr130, 'velocity_y'):
+							obj['velocity_y'])])]]));
+			}
+			return pyjslib['dict']([[String('ball'), jsond.__getitem__(2)], [String('paddle1'), jsond.__getitem__(0)], [String('paddle2'), jsond.__getitem__(1)]]);
+		}
+	, 1, [null,null,['self']]);
+		$cls_definition['toJSON'] = $method;
 		return $pyjs__class_function($cls_instance, $cls_definition, 
 		                            new Array(pyjslib['object']));
 	})();
@@ -766,7 +798,7 @@ var $generator_state = [0], $generator_exc = [null], $yield_value = null, $exc =
 		var $cls_instance = $pyjs__class_instance('Pong');
 		var $cls_definition = new Object();
 		var $method;
-		$cls_definition.__md5__ = '6b2c88d6c92570e2b4bd3379d159351c';
+		$cls_definition.__md5__ = 'ca1c34a1604b2fcbb2ec00e9a4efdb96';
 		$cls_definition['PLAYER1'] = 0;
 		$cls_definition['PLAYER2'] = 1;
 		$cls_definition['NULL'] = String('N');
@@ -781,23 +813,23 @@ var $generator_state = [0], $generator_exc = [null], $yield_value = null, $exc =
 			} else {
 				var self = arguments[0];
 			}
-			var $attr123,$attr124,$attr125,$attr126;
+			var $attr133,$attr132,$attr131,$attr134;
 			self.last_action_time = pyjslib['list']([0, 0]);
 			self.actions = pong['SortedCollection'](pyjslib['list']([pyjslib['tuple']([(typeof ($usub6=1)=='number'?
 				-$usub6:
-				pyjslib['op_usub']($usub6)), 0, ((($attr123=self['NULL']) !== null & ($attr124=self).__is_instance__) && typeof $attr123 == 'function'?
-						pyjslib['getattr']($attr124, 'NULL'):
+				pyjslib['op_usub']($usub6)), 0, ((($attr131=self['NULL']) !== null & ($attr132=self).__is_instance__) && typeof $attr131 == 'function'?
+						pyjslib['getattr']($attr132, 'NULL'):
 						self['NULL'])])]));
 			self.states = pyjslib['list']([pong['GameState']()]);
-			self.current_state = ((($attr125=self['states']) !== null & ($attr126=self).__is_instance__) && typeof $attr125 == 'function'?
-						pyjslib['getattr']($attr126, 'states'):
+			self.current_state = ((($attr133=self['states']) !== null & ($attr134=self).__is_instance__) && typeof $attr133 == 'function'?
+						pyjslib['getattr']($attr134, 'states'):
 						self['states']).__getitem__(0);
 			self.current_time = 0;
 			return null;
 		}
 	, 1, [null,null,['self']]);
 		$cls_definition['__init__'] = $method;
-		$method = $pyjs__bind_method($cls_instance, 'action', function(player, action_time, action) {
+		$method = $pyjs__bind_method($cls_instance, 'action', function(player, action_time, action, state) {
 			if (this.__is_instance__ === true) {
 				var self = this;
 			} else {
@@ -805,31 +837,58 @@ var $generator_state = [0], $generator_exc = [null], $yield_value = null, $exc =
 				player = arguments[1];
 				action_time = arguments[2];
 				action = arguments[3];
+				state = arguments[4];
 			}
-			var $attr132,$attr128,action_tuple,index,$attr134,$attr133,$attr131,$attr130,$add20,$attr127,$attr129,now,$add19;
-			if (pyjslib['bool']((pyjslib['cmp'](((($attr127=self['last_action_time']) !== null & ($attr128=self).__is_instance__) && typeof $attr127 == 'function'?
-						pyjslib['getattr']($attr128, 'last_action_time'):
+			if (typeof state == 'undefined') state=arguments.callee.__args__[6][1];
+			var new_state,$attr142,index,$attr140,$attr141,$add20,action_tuple,ball,paddle2,paddle1,now,$add19,$attr137,$attr136,$attr135,$attr139,$attr138;
+			if (pyjslib['bool']((pyjslib['cmp'](((($attr135=self['last_action_time']) !== null & ($attr136=self).__is_instance__) && typeof $attr135 == 'function'?
+						pyjslib['getattr']($attr136, 'last_action_time'):
 						self['last_action_time']).__getitem__(player), action_time) == 1))) {
 				return null;
 			}
-			((($attr129=self['last_action_time']) !== null & ($attr130=self).__is_instance__) && typeof $attr129 == 'function'?
-						pyjslib['getattr']($attr130, 'last_action_time'):
+			((($attr137=self['last_action_time']) !== null & ($attr138=self).__is_instance__) && typeof $attr137 == 'function'?
+						pyjslib['getattr']($attr138, 'last_action_time'):
 						self['last_action_time']).__setitem__(player, action_time);
 			action_tuple = pyjslib['tuple']([action_time, player, action]);
 			index = self['actions']['insert_right'](action_tuple);
-			pyjslib['__delslice'](((($attr131=self['states']) !== null & ($attr132=self).__is_instance__) && typeof $attr131 == 'function'?
-						pyjslib['getattr']($attr132, 'states'):
+			pyjslib['__delslice'](((($attr139=self['states']) !== null & ($attr140=self).__is_instance__) && typeof $attr139 == 'function'?
+						pyjslib['getattr']($attr140, 'states'):
 						self['states']), (typeof ($add19=index)==typeof ($add20=1) && (typeof $add19=='number'||typeof $add19=='string')?
 				$add19+$add20:
 				pyjslib['op_add']($add19,$add20)), null);
-			now = ((($attr133=self['current_time']) !== null & ($attr134=self).__is_instance__) && typeof $attr133 == 'function'?
-						pyjslib['getattr']($attr134, 'current_time'):
+			if (pyjslib['bool']((state !== null))) {
+				new_state = pong['GameState']();
+				ball = new_state['ball']();
+				var $tupleassign4 = state.__getitem__(String('ball')).__getitem__(String('position'));
+				ball.position_x = $tupleassign4.__getitem__(0);
+				ball.position_y = $tupleassign4.__getitem__(1);
+				var $tupleassign5 = state.__getitem__(String('ball')).__getitem__(String('velocity'));
+				ball.velocity_x = $tupleassign5.__getitem__(0);
+				ball.velocity_y = $tupleassign5.__getitem__(1);
+				paddle1 = new_state['paddle1']();
+				var $tupleassign6 = state.__getitem__(String('paddle1')).__getitem__(String('position'));
+				paddle1.position_x = $tupleassign6.__getitem__(0);
+				paddle1.position_y = $tupleassign6.__getitem__(1);
+				var $tupleassign7 = state.__getitem__(String('paddle1')).__getitem__(String('velocity'));
+				paddle1.velocity_x = $tupleassign7.__getitem__(0);
+				paddle1.velocity_y = $tupleassign7.__getitem__(1);
+				paddle2 = new_state['paddle2']();
+				var $tupleassign8 = state.__getitem__(String('paddle2')).__getitem__(String('position'));
+				paddle2.position_x = $tupleassign8.__getitem__(0);
+				paddle2.position_y = $tupleassign8.__getitem__(1);
+				var $tupleassign9 = state.__getitem__(String('paddle2')).__getitem__(String('velocity'));
+				paddle2.velocity_x = $tupleassign9.__getitem__(0);
+				paddle2.velocity_y = $tupleassign9.__getitem__(1);
+				self['states']['append'](new_state);
+			}
+			now = ((($attr141=self['current_time']) !== null & ($attr142=self).__is_instance__) && typeof $attr141 == 'function'?
+						pyjslib['getattr']($attr142, 'current_time'):
 						self['current_time']);
 			self['simulate']();
 			self['tick_until'](now);
 			return null;
 		}
-	, 1, [null,null,['self'],['player'],['action_time'],['action']]);
+	, 1, [null,null,['self'],['player'],['action_time'],['action'],['state', null]]);
 		$cls_definition['action'] = $method;
 		$method = $pyjs__bind_method($cls_instance, 'simulate', function() {
 			if (this.__is_instance__ === true) {
@@ -837,28 +896,28 @@ var $generator_state = [0], $generator_exc = [null], $yield_value = null, $exc =
 			} else {
 				var self = arguments[0];
 			}
-			var $sub22,current_idx,$attr140,$sub21,$attr144,$attr143,$add21,$add22,current_action,$add24,$attr141,$attr137,$attr136,$attr135,$attr139,$attr138,$add23,$attr142;
-			current_idx = (typeof ($sub21=pyjslib['len'](((($attr135=self['states']) !== null & ($attr136=self).__is_instance__) && typeof $attr135 == 'function'?
-						pyjslib['getattr']($attr136, 'states'):
+			var $sub22,$attr143,current_action,$sub21,$attr146,$attr147,$attr144,$attr145,$add21,$attr149,$add22,current_idx,$add24,$attr152,$attr151,$add23,$attr148,$attr150;
+			current_idx = (typeof ($sub21=pyjslib['len'](((($attr143=self['states']) !== null & ($attr144=self).__is_instance__) && typeof $attr143 == 'function'?
+						pyjslib['getattr']($attr144, 'states'):
 						self['states'])))==typeof ($sub22=1) && (typeof $sub21=='number'||typeof $sub21=='string')?
 				$sub21-$sub22:
 				pyjslib['op_sub']($sub21,$sub22));
-			self.current_state = ((($attr137=self['states']) !== null & ($attr138=self).__is_instance__) && typeof $attr137 == 'function'?
-						pyjslib['getattr']($attr138, 'states'):
+			self.current_state = ((($attr145=self['states']) !== null & ($attr146=self).__is_instance__) && typeof $attr145 == 'function'?
+						pyjslib['getattr']($attr146, 'states'):
 						self['states']).__getitem__((typeof ($usub7=1)=='number'?
 				-$usub7:
 				pyjslib['op_usub']($usub7)));
-			self.current_time = ((($attr139=self['actions']) !== null & ($attr140=self).__is_instance__) && typeof $attr139 == 'function'?
-						pyjslib['getattr']($attr140, 'actions'):
+			self.current_time = ((($attr147=self['actions']) !== null & ($attr148=self).__is_instance__) && typeof $attr147 == 'function'?
+						pyjslib['getattr']($attr148, 'actions'):
 						self['actions']).__getitem__(current_idx).__getitem__(0);
 			current_idx = (typeof ($add21=current_idx)==typeof ($add22=1) && (typeof $add21=='number'||typeof $add21=='string')?
 				$add21+$add22:
 				pyjslib['op_add']($add21,$add22));
-			while (pyjslib['bool']((pyjslib['cmp'](current_idx, pyjslib['len'](((($attr141=self['actions']) !== null & ($attr142=self).__is_instance__) && typeof $attr141 == 'function'?
-						pyjslib['getattr']($attr142, 'actions'):
+			while (pyjslib['bool']((pyjslib['cmp'](current_idx, pyjslib['len'](((($attr149=self['actions']) !== null & ($attr150=self).__is_instance__) && typeof $attr149 == 'function'?
+						pyjslib['getattr']($attr150, 'actions'):
 						self['actions']))) == -1))) {
-				current_action = ((($attr143=self['actions']) !== null & ($attr144=self).__is_instance__) && typeof $attr143 == 'function'?
-							pyjslib['getattr']($attr144, 'actions'):
+				current_action = ((($attr151=self['actions']) !== null & ($attr152=self).__is_instance__) && typeof $attr151 == 'function'?
+							pyjslib['getattr']($attr152, 'actions'):
 							self['actions']).__getitem__(current_idx);
 				current_idx = (typeof ($add23=current_idx)==typeof ($add24=1) && (typeof $add23=='number'||typeof $add23=='string')?
 					$add23+$add24:
@@ -878,57 +937,57 @@ var $generator_state = [0], $generator_exc = [null], $yield_value = null, $exc =
 				var self = arguments[0];
 				action_tuple = arguments[1];
 			}
-			var $sub23,$sub24,$attr160,player,$attr162,$attr163,$attr146,$attr147,$attr166,$attr145,$attr164,$attr165,$attr149,$add25,$attr161,paddle,$add26,action_time,$attr155,$attr154,$attr157,$attr156,$attr151,$attr150,$attr153,$attr152,$attr159,$attr158,action,$attr148;
-			var $tupleassign4 = action_tuple;
-			action_time = $tupleassign4.__getitem__(0);
-			player = $tupleassign4.__getitem__(1);
-			action = $tupleassign4.__getitem__(2);
-			paddle = ((($attr145=self['current_state']['objects']) !== null & ($attr146=self['current_state']).__is_instance__) && typeof $attr145 == 'function'?
-						pyjslib['getattr']($attr146, 'objects'):
+			var $sub23,$sub24,$add25,$attr172,player,$attr162,$attr163,$attr168,$attr169,$attr164,$attr165,$attr167,$attr160,$attr161,paddle,$add26,$attr173,$attr154,$attr155,action_time,$attr157,$attr156,$attr153,$attr174,$attr159,$attr158,$attr171,$attr170,action,$attr166;
+			var $tupleassign10 = action_tuple;
+			action_time = $tupleassign10.__getitem__(0);
+			player = $tupleassign10.__getitem__(1);
+			action = $tupleassign10.__getitem__(2);
+			paddle = ((($attr153=self['current_state']['objects']) !== null & ($attr154=self['current_state']).__is_instance__) && typeof $attr153 == 'function'?
+						pyjslib['getattr']($attr154, 'objects'):
 						self['current_state']['objects']).__getitem__(player);
-			if (pyjslib['bool'](pyjslib['op_eq'](action, ((($attr147=self['NULL']) !== null & ($attr148=self).__is_instance__) && typeof $attr147 == 'function'?
-						pyjslib['getattr']($attr148, 'NULL'):
+			if (pyjslib['bool'](pyjslib['op_eq'](action, ((($attr155=self['NULL']) !== null & ($attr156=self).__is_instance__) && typeof $attr155 == 'function'?
+						pyjslib['getattr']($attr156, 'NULL'):
 						self['NULL'])))) {
 			}
-			else if (pyjslib['bool'](pyjslib['op_eq'](action, ((($attr149=self['BALL']) !== null & ($attr150=self).__is_instance__) && typeof $attr149 == 'function'?
-						pyjslib['getattr']($attr150, 'BALL'):
+			else if (pyjslib['bool'](pyjslib['op_eq'](action, ((($attr157=self['BALL']) !== null & ($attr158=self).__is_instance__) && typeof $attr157 == 'function'?
+						pyjslib['getattr']($attr158, 'BALL'):
 						self['BALL'])))) {
 				self['current_state']['initialize']();
 			}
-			else if (pyjslib['bool'](pyjslib['op_eq'](action, ((($attr151=self['UP_PRESS']) !== null & ($attr152=self).__is_instance__) && typeof $attr151 == 'function'?
-						pyjslib['getattr']($attr152, 'UP_PRESS'):
+			else if (pyjslib['bool'](pyjslib['op_eq'](action, ((($attr159=self['UP_PRESS']) !== null & ($attr160=self).__is_instance__) && typeof $attr159 == 'function'?
+						pyjslib['getattr']($attr160, 'UP_PRESS'):
 						self['UP_PRESS'])))) {
-				paddle.velocity_y = pyjslib['min']((typeof ($add25=((($attr153=paddle['velocity_y']) !== null & ($attr154=paddle).__is_instance__) && typeof $attr153 == 'function'?
-							pyjslib['getattr']($attr154, 'velocity_y'):
+				paddle.velocity_y = pyjslib['min']((typeof ($add25=((($attr161=paddle['velocity_y']) !== null & ($attr162=paddle).__is_instance__) && typeof $attr161 == 'function'?
+							pyjslib['getattr']($attr162, 'velocity_y'):
 							paddle['velocity_y']))==typeof ($add26=pong['PADDLE_VELOCITY']) && (typeof $add25=='number'||typeof $add25=='string')?
 					$add25+$add26:
 					pyjslib['op_add']($add25,$add26)), pong['PADDLE_VELOCITY']);
 			}
-			else if (pyjslib['bool'](pyjslib['op_eq'](action, ((($attr155=self['UP_RELEASE']) !== null & ($attr156=self).__is_instance__) && typeof $attr155 == 'function'?
-						pyjslib['getattr']($attr156, 'UP_RELEASE'):
+			else if (pyjslib['bool'](pyjslib['op_eq'](action, ((($attr163=self['UP_RELEASE']) !== null & ($attr164=self).__is_instance__) && typeof $attr163 == 'function'?
+						pyjslib['getattr']($attr164, 'UP_RELEASE'):
 						self['UP_RELEASE'])))) {
-				if (pyjslib['bool']((pyjslib['cmp'](((($attr157=paddle['velocity_y']) !== null & ($attr158=paddle).__is_instance__) && typeof $attr157 == 'function'?
-							pyjslib['getattr']($attr158, 'velocity_y'):
+				if (pyjslib['bool']((pyjslib['cmp'](((($attr165=paddle['velocity_y']) !== null & ($attr166=paddle).__is_instance__) && typeof $attr165 == 'function'?
+							pyjslib['getattr']($attr166, 'velocity_y'):
 							paddle['velocity_y']), 0) == 1))) {
 					paddle.velocity_y = 0;
 				}
 			}
-			else if (pyjslib['bool'](pyjslib['op_eq'](action, ((($attr159=self['DOWN_PRESS']) !== null & ($attr160=self).__is_instance__) && typeof $attr159 == 'function'?
-						pyjslib['getattr']($attr160, 'DOWN_PRESS'):
+			else if (pyjslib['bool'](pyjslib['op_eq'](action, ((($attr167=self['DOWN_PRESS']) !== null & ($attr168=self).__is_instance__) && typeof $attr167 == 'function'?
+						pyjslib['getattr']($attr168, 'DOWN_PRESS'):
 						self['DOWN_PRESS'])))) {
-				paddle.velocity_y = pyjslib['max']((typeof ($sub23=((($attr161=paddle['velocity_y']) !== null & ($attr162=paddle).__is_instance__) && typeof $attr161 == 'function'?
-							pyjslib['getattr']($attr162, 'velocity_y'):
+				paddle.velocity_y = pyjslib['max']((typeof ($sub23=((($attr169=paddle['velocity_y']) !== null & ($attr170=paddle).__is_instance__) && typeof $attr169 == 'function'?
+							pyjslib['getattr']($attr170, 'velocity_y'):
 							paddle['velocity_y']))==typeof ($sub24=pong['PADDLE_VELOCITY']) && (typeof $sub23=='number'||typeof $sub23=='string')?
 					$sub23-$sub24:
 					pyjslib['op_sub']($sub23,$sub24)), (typeof ($usub8=pong['PADDLE_VELOCITY'])=='number'?
 					-$usub8:
 					pyjslib['op_usub']($usub8)));
 			}
-			else if (pyjslib['bool'](pyjslib['op_eq'](action, ((($attr163=self['DOWN_RELEASE']) !== null & ($attr164=self).__is_instance__) && typeof $attr163 == 'function'?
-						pyjslib['getattr']($attr164, 'DOWN_RELEASE'):
+			else if (pyjslib['bool'](pyjslib['op_eq'](action, ((($attr171=self['DOWN_RELEASE']) !== null & ($attr172=self).__is_instance__) && typeof $attr171 == 'function'?
+						pyjslib['getattr']($attr172, 'DOWN_RELEASE'):
 						self['DOWN_RELEASE'])))) {
-				if (pyjslib['bool']((pyjslib['cmp'](((($attr165=paddle['velocity_y']) !== null & ($attr166=paddle).__is_instance__) && typeof $attr165 == 'function'?
-							pyjslib['getattr']($attr166, 'velocity_y'):
+				if (pyjslib['bool']((pyjslib['cmp'](((($attr173=paddle['velocity_y']) !== null & ($attr174=paddle).__is_instance__) && typeof $attr173 == 'function'?
+							pyjslib['getattr']($attr174, 'velocity_y'):
 							paddle['velocity_y']), 0) == -1))) {
 					paddle.velocity_y = 0;
 				}
@@ -944,11 +1003,11 @@ var $generator_state = [0], $generator_exc = [null], $yield_value = null, $exc =
 				var self = arguments[0];
 				time = arguments[1];
 			}
-			var $attr168,$attr169,$attr167,$and5,$and6,$attr170;
-			while (pyjslib['bool']((pyjslib['bool']($and5=!pyjslib['bool'](((($attr167=self['current_state']['match_over']) !== null & ($attr168=self['current_state']).__is_instance__) && typeof $attr167 == 'function'?
-						pyjslib['getattr']($attr168, 'match_over'):
-						self['current_state']['match_over'])))?(pyjslib['cmp'](((($attr169=self['current_time']) !== null & ($attr170=self).__is_instance__) && typeof $attr169 == 'function'?
-						pyjslib['getattr']($attr170, 'current_time'):
+			var $attr178,$attr177,$attr176,$and5,$and6,$attr175;
+			while (pyjslib['bool']((pyjslib['bool']($and5=!pyjslib['bool'](((($attr175=self['current_state']['match_over']) !== null & ($attr176=self['current_state']).__is_instance__) && typeof $attr175 == 'function'?
+						pyjslib['getattr']($attr176, 'match_over'):
+						self['current_state']['match_over'])))?(pyjslib['cmp'](((($attr177=self['current_time']) !== null & ($attr178=self).__is_instance__) && typeof $attr177 == 'function'?
+						pyjslib['getattr']($attr178, 'current_time'):
 						self['current_time']), time) == -1):$and5))) {
 				self['tick']();
 			}
@@ -962,10 +1021,10 @@ var $generator_state = [0], $generator_exc = [null], $yield_value = null, $exc =
 			} else {
 				var self = arguments[0];
 			}
-			var $add28,$attr172,$attr171,$add27;
+			var $add28,$attr180,$attr179,$add27;
 			self['current_state']['tick']();
-			self.current_time = (typeof ($add27=((($attr171=self['current_time']) !== null & ($attr172=self).__is_instance__) && typeof $attr171 == 'function'?
-						pyjslib['getattr']($attr172, 'current_time'):
+			self.current_time = (typeof ($add27=((($attr179=self['current_time']) !== null & ($attr180=self).__is_instance__) && typeof $attr179 == 'function'?
+						pyjslib['getattr']($attr180, 'current_time'):
 						self['current_time']))==typeof ($add28=1) && (typeof $add27=='number'||typeof $add27=='string')?
 				$add27+$add28:
 				pyjslib['op_add']($add27,$add28));
