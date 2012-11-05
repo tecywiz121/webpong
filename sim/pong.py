@@ -2,7 +2,7 @@ from SortedCollection import SortedCollection
 
 GAME_WIDTH = 800
 GAME_HEIGHT = 400
-BALL_VELOCITY = (1, 0)  # x**2 + y**2 < width of a paddle
+BALL_VELOCITY = (1, 1)  # x**2 + y**2 < width of a paddle
 PADDLE_VELOCITY = 2
 
 class GameObject(object):
